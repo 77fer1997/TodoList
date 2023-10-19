@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const tokenSign = require("../helpers/generateToken");
+const { tokenSign } = require("../helpers/generateToken");
 module.exports.getConnectionId = async (req, res) => {
   const connectionId = crypto.randomBytes(16).toString("hex");
   try {

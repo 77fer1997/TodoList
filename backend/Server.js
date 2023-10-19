@@ -13,5 +13,7 @@ mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
+
 app.use("/", require("./routes/index"));
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

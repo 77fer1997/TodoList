@@ -6,5 +6,14 @@ const tokenSign = (connectionId) => {
   });
   return token;
 };
-
-module.exports = tokenSign;
+const verifyToken = async (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET || "123456");
+  } catch (error) {
+    return null;
+  }
+};
+module.exports = {
+  tokenSign,
+  verifyToken,
+};

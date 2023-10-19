@@ -1,23 +1,42 @@
 const ToDoModel = require("../models/ToDoModel");
+const { verifyToken } = require("../helpers/generateToken");
 
-module.exports.getTodo = async (req, res) => {
+// Obtenemos todas las tareas
+const getTodo = async (req, res) => {
   try {
     const toDo = await ToDoModel.find();
-    console.log(toDo);
+    const token = req.headers.authorization.split(" ")[1];
+    const tokenData = await verifyToken(token);
+    if (!tokenData) {
+      res.status(401);
+      res.send({
+        msg: "No autorizado",
+      });
+      return;
+    }
     res.status(200);
     res.send(toDo);
   } catch (error) {
     res.status(404);
     res.send({
       msg: "Ocurrio un error inesperado.",
-      error: error,
     });
   }
 };
-module.exports.saveToDo = async (req, res) => {
+// Guardamos una tarea
+const saveToDo = async (req, res) => {
   try {
     const { text } = req.body;
     const data = await ToDoModel.create({ text });
+    const token = req.headers.authorization.split(" ")[1];
+    const tokenData = await verifyToken(token);
+    if (!tokenData) {
+      res.status(401);
+      res.send({
+        msg: "No autorizado",
+      });
+      return;
+    }
     res.status(201);
     res.send(data);
   } catch (error) {
@@ -28,10 +47,20 @@ module.exports.saveToDo = async (req, res) => {
     });
   }
 };
-module.exports.updateTodo = async (req, res) => {
+// Actualizamos una tarea
+const updateTodo = async (req, res) => {
   try {
     const { _id, text, completed } = req.body;
     const data = await ToDoModel.findByIdAndUpdate(_id, { text });
+    const token = req.headers.authorization.split(" ")[1];
+    const tokenData = await verifyToken(token);
+    if (!tokenData) {
+      res.status(401);
+      res.send({
+        msg: "No autorizado",
+      });
+      return;
+    }
     res.send({
       id: data._id,
       text: text,
@@ -45,10 +74,20 @@ module.exports.updateTodo = async (req, res) => {
     });
   }
 };
-module.exports.deleteTodo = async (req, res) => {
+// Eliminamos una tarea
+const deleteTodo = async (req, res) => {
   try {
     const { _id } = req.body;
     await ToDoModel.findByIdAndDelete(_id);
+    const token = req.headers.authorization.split(" ")[1];
+    const tokenData = await verifyToken(token);
+    if (!tokenData) {
+      res.status(401);
+      res.send({
+        msg: "No autorizado",
+      });
+      return;
+    }
     res.status(200);
     res.send({
       id: _id,
@@ -61,10 +100,20 @@ module.exports.deleteTodo = async (req, res) => {
     });
   }
 };
-module.exports.changeCompleted = async (req, res) => {
+// Cambiamos el estado de una tarea
+const changeCompleted = async (req, res) => {
   try {
     const { _id, completed } = req.body;
     const data = await ToDoModel.findByIdAndUpdate(_id, { completed });
+    const token = req.headers.authorization.split(" ")[1];
+    const tokenData = await verifyToken(token);
+    if (!tokenData) {
+      res.status(401);
+      res.send({
+        msg: "No autorizado",
+      });
+      return;
+    }
     res.status(200);
     res.send({
       id: data._id,
@@ -77,4 +126,11 @@ module.exports.changeCompleted = async (req, res) => {
       error,
     });
   }
+};
+module.exports = {
+  getTodo,
+  saveToDo,
+  updateTodo,
+  deleteTodo,
+  changeCompleted,
 };
