@@ -10,8 +10,8 @@ const {
 const router = Router();
 
 router.get("/", getTodo);
-router.post("/save", saveToDo);
-router.patch("/update", updateTodo);
-router.delete("/delete", deleteTodo);
+router.post("/", saveToDo);
+router.patch("/", updateTodo);
+router.delete("/", deleteTodo);
 router.patch("/changeCompleted", changeCompleted);
 module.exports = router;

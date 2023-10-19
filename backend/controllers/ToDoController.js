@@ -3,6 +3,7 @@ const ToDoModel = require("../models/ToDoModel");
 module.exports.getTodo = async (req, res) => {
   try {
     const toDo = await ToDoModel.find();
+    console.log(toDo);
     res.status(200);
     res.send(toDo);
   } catch (error) {
