@@ -1,0 +1,57 @@
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  width: 80%;
+  max-width: 500px;
+  min-height: 100px;
+  background: #171723;
+  position: relative;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+}
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.closeButtonContainer {
+  position: absolute;
+  right: 10px;
+}
+.closeButton {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  color: #ffffff8c;
+  cursor: pointer;
+}
+.button {
+  background: transparent;
+  border: 1px solid #ffffff8c;
+  padding: 8px 18px;
+  outline: none;
+  font-size: 16px;
+  color: #ffffff8c;
+  cursor: pointer;
+}
+.button:hover {
+  background: #ffffff8c;
+  color: #171723;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
