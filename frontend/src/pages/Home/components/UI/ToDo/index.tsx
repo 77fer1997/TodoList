@@ -5,10 +5,10 @@ import { RadioButton } from "../../../../../components/RadioButton";
 import { Modal } from "../../../../../components/Modal";
 import { Input } from "../../../../../components/Input";
 interface IProps {
-  title: string;
-  id: string;
+  text: string;
+  _id: string;
 }
-export const ToDo: FC<IProps> = ({ title, id }) => {
+export const ToDo: FC<IProps> = ({ text, _id }) => {
   const [checked, setChecked] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
@@ -18,8 +18,8 @@ export const ToDo: FC<IProps> = ({ title, id }) => {
   return (
     <div className={styles.container}>
       <RadioButton
-        id={id}
-        label={title}
+        id={_id}
+        label={text}
         checked={checked}
         setChecked={setChecked}
       />
