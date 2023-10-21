@@ -7,11 +7,21 @@ interface IPropsModal {
   Header?: React.ReactNode;
   Body?: React.ReactNode;
   showModal: boolean;
+  actionButton: () => void;
   setShowModal: (showModal: boolean) => void;
 }
 
-export const Modal = ({ children, showModal, setShowModal }: IPropsModal) => {
+export const Modal = ({
+  children,
+  showModal,
+  setShowModal,
+  actionButton,
+}: IPropsModal) => {
   console.log(showModal);
+  const handleClick = () => {
+    actionButton();
+    setShowModal(false);
+  };
   return (
     <>
       {showModal &&
@@ -28,7 +38,9 @@ export const Modal = ({ children, showModal, setShowModal }: IPropsModal) => {
               </div>
               {children}
               <div className={styles.buttonContainer}>
-                <button className={styles.button}>Agregar</button>
+                <button className={styles.button} onClick={handleClick}>
+                  Edit ToDo
+                </button>
               </div>
             </div>
           </div>,

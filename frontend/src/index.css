@@ -18,3 +18,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+.button {
+  background: transparent;
+  border: 1px solid #ffffff8c;
+  padding: 8px 18px;
+  outline: none;
+  font-size: 16px;
+  color: #ffffff8c;
+  cursor: pointer;
+}
+.button:hover {
+  background: #ffffff8c;
+  color: #171723;
+}

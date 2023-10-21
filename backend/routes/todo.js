@@ -12,6 +12,6 @@ const router = Router();
 router.get("/", getTodo);
 router.post("/", saveToDo);
 router.patch("/", updateTodo);
-router.delete("/", deleteTodo);
+router.delete("/:id", deleteTodo);
 router.patch("/changeCompleted", changeCompleted);
 module.exports = router;

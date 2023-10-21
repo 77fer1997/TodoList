@@ -4,9 +4,9 @@ const { verifyToken } = require("../helpers/generateToken");
 // Obtenemos todas las tareas
 const getTodo = async (req, res) => {
   try {
-    const toDo = await ToDoModel.find();
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
     const tokenData = await verifyToken(token);
+
     if (!tokenData) {
       res.status(401);
       res.send({
@@ -14,6 +14,7 @@ const getTodo = async (req, res) => {
       });
       return;
     }
+    const toDo = await ToDoModel.find();
     res.status(200);
     res.send(toDo);
   } catch (error) {
@@ -27,8 +28,7 @@ const getTodo = async (req, res) => {
 const saveToDo = async (req, res) => {
   try {
     const { text } = req.body;
-    const data = await ToDoModel.create({ text });
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
     const tokenData = await verifyToken(token);
     if (!tokenData) {
       res.status(401);
@@ -37,6 +37,7 @@ const saveToDo = async (req, res) => {
       });
       return;
     }
+    const data = await ToDoModel.create({ text });
     res.status(201);
     res.send(data);
   } catch (error) {
@@ -50,9 +51,8 @@ const saveToDo = async (req, res) => {
 // Actualizamos una tarea
 const updateTodo = async (req, res) => {
   try {
-    const { _id, text, completed } = req.body;
-    const data = await ToDoModel.findByIdAndUpdate(_id, { text });
-    const token = req.headers.authorization.split(" ")[1];
+    const { _id, text } = req.body;
+    const token = req.headers.authorization?.split(" ")[1];
     const tokenData = await verifyToken(token);
     if (!tokenData) {
       res.status(401);
@@ -61,10 +61,10 @@ const updateTodo = async (req, res) => {
       });
       return;
     }
+    const data = await ToDoModel.findByIdAndUpdate(_id, { text });
     res.send({
-      id: data._id,
+      _id: data._id,
       text: text,
-      completed: completed,
     });
   } catch (error) {
     res.status(404);
@@ -77,9 +77,8 @@ const updateTodo = async (req, res) => {
 // Eliminamos una tarea
 const deleteTodo = async (req, res) => {
   try {
-    const { _id } = req.body;
-    await ToDoModel.findByIdAndDelete(_id);
-    const token = req.headers.authorization.split(" ")[1];
+    const { id } = req.params;
+    const token = req.headers.authorization?.split(" ")[1];
     const tokenData = await verifyToken(token);
     if (!tokenData) {
       res.status(401);
@@ -88,9 +87,10 @@ const deleteTodo = async (req, res) => {
       });
       return;
     }
+    await ToDoModel.findByIdAndDelete(id);
     res.status(200);
     res.send({
-      id: _id,
+      _id: id,
     });
   } catch (error) {
     res.status(404);
@@ -104,8 +104,8 @@ const deleteTodo = async (req, res) => {
 const changeCompleted = async (req, res) => {
   try {
     const { _id, completed } = req.body;
-    const data = await ToDoModel.findByIdAndUpdate(_id, { completed });
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
+    console.log(token);
     const tokenData = await verifyToken(token);
     if (!tokenData) {
       res.status(401);
@@ -114,6 +114,7 @@ const changeCompleted = async (req, res) => {
       });
       return;
     }
+    const data = await ToDoModel.findByIdAndUpdate(_id, { completed });
     res.status(200);
     res.send({
       id: data._id,

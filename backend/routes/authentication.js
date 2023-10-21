@@ -1,8 +1,12 @@
 const { Router } = require("express");
-const { getConnectionId } = require("../controllers/connectionController");
+const {
+  getConnectionId,
+  verifyConnection,
+} = require("../controllers/connectionController");
 
 const router = Router();
 
 router.get("/", getConnectionId);
+router.post("/verify", verifyConnection);
 
 module.exports = router;

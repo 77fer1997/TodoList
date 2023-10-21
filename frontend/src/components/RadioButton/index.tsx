@@ -5,16 +5,17 @@ interface IProps {
   id: string;
   label: string;
   checked: boolean;
-  setChecked: (checked: boolean) => void;
+  setChecked: () => void;
 }
 export const RadioButton: FC<IProps> = ({ id, label, checked, setChecked }) => {
-  console.log("hola");
+  console.log("radio" + checked);
   return (
     <div className={styles.container}>
       <input
         type="checkbox"
         value={`${checked}`}
-        onChange={() => setChecked(!checked)}
+        checked={checked}
+        onChange={() => setChecked()}
         name={id}
         id={id}
       />
