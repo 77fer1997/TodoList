@@ -5,9 +5,9 @@ import {
   deleteTodoService,
   getTodosService,
   updateTodoService,
-} from "../../services/todo";
+} from "@services/todo";
 import { TodoContext } from "./TodoContext";
-import { IToDo } from "../../models/ToDo";
+import { IToDo } from "@models/ToDo";
 
 interface TodoProviderProps {
   children: React.ReactNode;
@@ -25,6 +25,8 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
       console.log(error);
     }
   };
+
+  /** Add Todo  */
   const addTodo = async (text: string) => {
     try {
       const todo: IToDo = await addTodosService(text);
@@ -33,36 +35,33 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
       console.log(error);
     }
   };
+  /** Delete Todo */
   const deleteTodo = async (id: string) => {
     try {
       const deletedTodo: IToDo = await deleteTodoService(id);
       const newTodos = todos.filter((todo) => todo._id !== deletedTodo._id);
-      console.log(deletedTodo);
-      console.log(newTodos);
       setTodos(newTodos);
     } catch (error) {
       console.log(error);
     }
   };
+  /** Update Todo */
   const updateTodo = async (id: string, text: string) => {
     try {
       const updatedTodo: IToDo = await updateTodoService(id, text);
-      console.log(updatedTodo);
+
       const newTodos = todos.map((todo) => {
-        console.log(todo._id, updatedTodo._id);
         if (todo._id === updatedTodo._id) {
-          console.log(updatedTodo);
           return updatedTodo;
         }
         return todo;
       });
-      console.log(newTodos);
-      console.log(todos);
       setTodos(newTodos);
     } catch (error) {
       console.log(error);
     }
   };
+  /** Change state Completed */
   const changeCompleted = async (id: string, completed: boolean) => {
     try {
       const updatedTodoCompleted: IToDo = await changeCompletedService(

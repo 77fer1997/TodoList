@@ -12,8 +12,6 @@ fs.readdirSync(pathRouter).filter((file) => {
   if (!skip) {
     router.use(`/${fileWithOutExt}`, require(`./${fileWithOutExt}`)); // localhost/user
   }
-  console.log(fileWithOutExt);
-  console.log(file);
 });
 router.get("*", (req, res) => {
   res.status(404);

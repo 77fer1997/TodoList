@@ -17,7 +17,6 @@ export const Modal = ({
   setShowModal,
   actionButton,
 }: IPropsModal) => {
-  console.log(showModal);
   const handleClick = () => {
     actionButton();
   };
@@ -51,15 +50,12 @@ export const Modal = ({
 interface IPropsModalHeader {
   children: React.ReactNode;
 }
-const ModalHeader = ({ children }: IPropsModalHeader) => {
+export const ModalHeader = ({ children }: IPropsModalHeader) => {
   return <div className={styles.modalHeader}>{children}</div>;
 };
 interface IPropsModalBody {
   children: React.ReactNode;
 }
-const ModalBody = ({ children }: IPropsModalBody) => {
+export const ModalBody = ({ children }: IPropsModalBody) => {
   return <div className={styles.modalBodyContainer}>{children}</div>;
 };
-
-Modal.Header = ModalHeader;
-Modal.Body = ModalBody;

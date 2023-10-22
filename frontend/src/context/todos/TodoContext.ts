@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IToDo } from "../../models/ToDo";
+import { IToDo } from "@models/ToDo";
 
 interface TodoContextProps {
   todos: IToDo[];

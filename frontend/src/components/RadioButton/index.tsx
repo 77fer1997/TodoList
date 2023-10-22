@@ -8,7 +8,6 @@ interface IProps {
   setChecked: () => void;
 }
 export const RadioButton: FC<IProps> = ({ id, label, checked, setChecked }) => {
-  console.log("radio" + checked);
   return (
     <div className={styles.container}>
       <input
