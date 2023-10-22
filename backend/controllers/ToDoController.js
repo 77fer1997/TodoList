@@ -105,7 +105,6 @@ const changeCompleted = async (req, res) => {
   try {
     const { _id, completed } = req.body;
     const token = req.headers.authorization?.split(" ")[1];
-    console.log(token);
     const tokenData = await verifyToken(token);
     if (!tokenData) {
       res.status(401);

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_TODO_URL } from "../constants/api";
+import { GET_TODO_URL } from "@constants/api";
 export const getTodosService = async () => {
   try {
     const response = await axios.get(`${GET_TODO_URL}`);
