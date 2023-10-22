@@ -20,7 +20,6 @@ export const Modal = ({
   console.log(showModal);
   const handleClick = () => {
     actionButton();
-    setShowModal(false);
   };
   return (
     <>

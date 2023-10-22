@@ -6,6 +6,7 @@ import { Modal } from "../../../../../components/Modal";
 import { Input } from "../../../../../components/Input";
 import { TodoContext } from "../../../../../context/todos/TodoContext";
 import { changeCompletedService } from "../../../../../services/todo";
+import { toDoValidation } from "../../../../../validations/ToDoValidation";
 interface IProps {
   text: string;
   _id: string;
@@ -28,6 +29,11 @@ export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
   const handleOnChecked = () => {
     setChecked(!checked);
     changeCompletedService(_id, !checked);
+  };
+  const handleEdit = () => {
+    if (!toDoValidation(inputText).status) return;
+    updateTodo(_id, inputText);
+    setShowEditModal(!showEditModal);
   };
   return (
     <div className={styles.container}>
@@ -53,7 +59,7 @@ export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
       <Modal
         showModal={showEditModal}
         setShowModal={setShowEditModal}
-        actionButton={() => updateTodo(_id, inputText)}
+        actionButton={handleEdit}
       >
         <Modal.Header>
           <h4>Editar Tarea</h4>
@@ -65,6 +71,9 @@ export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
             type="text"
             placeholder="Ingresa una tarea"
           />
+          {!toDoValidation(inputText).status && (
+            <p className={styles.error}>{toDoValidation(inputText).msg}</p>
+          )}
         </Modal.Body>
       </Modal>
       {/* End Edit Modal */}

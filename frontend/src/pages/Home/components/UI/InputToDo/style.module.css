@@ -4,7 +4,7 @@
   align-items: center;
   border-radius: 6px;
   background: #24273d;
-  margin: 20px 0;
+  margin: 20px 0 5px 0;
   position: relative;
   height: 50px;
 }
@@ -23,4 +23,11 @@
   color: #ffffff8c;
   font-size: 16px;
   font-weight: 500;
+}
+.error {
+  color: rgb(255, 125, 125);
+  font-size: 12px;
+  margin: 5px 0 20px 0;
+  width: 100%;
+  text-align: center;
 }
