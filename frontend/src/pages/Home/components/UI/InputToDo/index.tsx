@@ -1,8 +1,9 @@
 import { FC, useContext, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import styles from "./style.module.css";
-import { TodoContext } from "../../../../../context/todos/TodoContext";
-import { toDoValidation } from "../../../../../validations/ToDoValidation";
+
+import { TodoContext } from "@context/todos/TodoContext";
+import { toDoValidation } from "@validations/ToDoValidation";
 
 export const InputToDo: FC = () => {
   const [task, setTask] = useState<string>("");

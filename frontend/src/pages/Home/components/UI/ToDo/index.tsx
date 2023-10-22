@@ -1,24 +1,26 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useState, Suspense } from "react";
+
 import styles from "./style.module.css";
+import { lazily } from "react-lazily";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { RadioButton } from "../../../../../components/RadioButton";
-import { Modal } from "../../../../../components/Modal";
-import { Input } from "../../../../../components/Input";
-import { TodoContext } from "../../../../../context/todos/TodoContext";
-import { changeCompletedService } from "../../../../../services/todo";
-import { toDoValidation } from "../../../../../validations/ToDoValidation";
+
+import { RadioButton } from "@components/RadioButton";
+import { TodoContext } from "@context/todos/TodoContext";
+import { changeCompletedService } from "@services/todo";
+
 interface IProps {
   text: string;
   _id: string;
   completed: boolean;
 }
+//Importamos dinamicamente el componente EditModal para que no se cargue antes de utilizarlo
+const { EditModal } = lazily(() => import("../EditModal"));
+
 export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
-  console.log("completed" + completed);
   const [checked, setChecked] = useState<boolean>(completed);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
-  const [inputText, setInputText] = useState<string>("");
 
-  const { deleteTodo, updateTodo } = useContext(TodoContext);
+  const { deleteTodo } = useContext(TodoContext);
 
   const handleToogleEditModal = () => {
     setShowEditModal(!showEditModal);
@@ -30,11 +32,7 @@ export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
     setChecked(!checked);
     changeCompletedService(_id, !checked);
   };
-  const handleEdit = () => {
-    if (!toDoValidation(inputText).status) return;
-    updateTodo(_id, inputText);
-    setShowEditModal(!showEditModal);
-  };
+
   return (
     <div className={styles.container}>
       <RadioButton
@@ -56,26 +54,15 @@ export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
       </div>
 
       {/* Edit Modal */}
-      <Modal
-        showModal={showEditModal}
-        setShowModal={setShowEditModal}
-        actionButton={handleEdit}
-      >
-        <Modal.Header>
-          <h4>Editar Tarea</h4>
-        </Modal.Header>
-        <Modal.Body>
-          <Input
-            onChange={(e) => setInputText(e.target.value)}
-            value={inputText}
-            type="text"
-            placeholder="Ingresa una tarea"
+      {showEditModal && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <EditModal
+            showEditModal={showEditModal}
+            setShowEditModal={setShowEditModal}
+            _id={_id}
           />
-          {!toDoValidation(inputText).status && (
-            <p className={styles.error}>{toDoValidation(inputText).msg}</p>
-          )}
-        </Modal.Body>
-      </Modal>
+        </Suspense>
+      )}
       {/* End Edit Modal */}
     </div>
   );
