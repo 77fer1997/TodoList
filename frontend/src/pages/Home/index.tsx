@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { TodoContext } from "@context/todos/TodoContext";
 import { persistLocalStorage } from "@utils/localStorage";
 import { getToken } from "@/services/auth";
+
 const Home: FC = () => {
   const { todos, getTodos } = useContext(TodoContext);
   useEffect(() => {
@@ -13,6 +14,7 @@ const Home: FC = () => {
       persistLocalStorage("token", token);
       getTodos();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

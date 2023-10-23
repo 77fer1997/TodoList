@@ -12,11 +12,12 @@ interface IProps {
   text: string;
   _id: string;
   completed: boolean;
+  style: React.CSSProperties;
 }
 //Importamos dinamicamente el componente EditModal para que no se cargue antes de utilizarlo
 const { EditModal } = lazily(() => import("../EditModal"));
 
-export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
+export const ToDo: FC<IProps> = ({ text, _id, completed, style }) => {
   const [checked, setChecked] = useState<boolean>(completed);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
@@ -34,7 +35,7 @@ export const ToDo: FC<IProps> = ({ text, _id, completed }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div style={style} className={styles.container}>
       <RadioButton
         id={_id}
         label={text}
