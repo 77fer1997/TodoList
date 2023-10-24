@@ -20,7 +20,6 @@ const { EditModal } = lazily(() => import("../EditModal"));
 export const ToDo: FC<IProps> = ({ text, _id, completed, style }) => {
   const [checked, setChecked] = useState<boolean>(completed);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
-
   const { deleteTodo } = useContext(TodoContext);
 
   const handleToogleEditModal = () => {

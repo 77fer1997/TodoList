@@ -14,7 +14,7 @@ const validateCreate = [
     })
     .custom((value) => {
       if (value.length < 3) {
-        throw new Error("El texto no puede tener menos de 5 caracteres");
+        throw new Error("El texto no puede tener menos de 3 caracteres");
       }
       return true;
     }),

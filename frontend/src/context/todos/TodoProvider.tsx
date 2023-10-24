@@ -15,7 +15,6 @@ interface TodoProviderProps {
 
 export const TodoProvider = ({ children }: TodoProviderProps) => {
   const [todos, setTodos] = useState<IToDo[]>([]);
-
   const getTodos = async () => {
     //Si el token existe no vuelvo a hacer la petición para obtener el token
     try {
